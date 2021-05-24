@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+
+import SearchBar from './components/search-bar';
+import SongForm from './components/song-form';
+import MusicTable from './components/music-table';
 
 function App() {
+  const [searchText, setSearchText] = useState('');
+  const [tableData, setTableData] = useState([]);
+  
+  const searchSong = (t) => {
+    setSearchText(t);
+  }
+
+  const handleAdd = (song) => {
+    console.log(song)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Music Library React Project</h1>
+      <br />
+      <SongForm onAdd={(song)=>handleAdd(song)}/>
+      <br />
+      <SearchBar value={searchText} onChange={(t)=>searchSong(t)}/>
+      <br />
+      <MusicTable search={searchText} data={tableData}/>
     </div>
   );
 }
